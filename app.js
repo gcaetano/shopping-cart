@@ -10,12 +10,13 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport'); 
 var flash = require('connect-flash');
+var validator = require('express-validator');
 
 var app = express();
 
 mongoose.connect('mongodb://localhost:27017/shopping',  { useMongoClient: true });
 mongoose.Promise = global.Promise;
-require('./config/passport');
+require('./config/passport')(passport);
 
 // view engine setup
 // app.set('views', path.join8(__dirname, 'views'));
@@ -27,6 +28,7 @@ app.set('view engine', '.hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 app.use(cookieParser());
 app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
 app.use(flash());
