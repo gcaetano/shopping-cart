@@ -5,18 +5,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
-var index = require('./routes/index');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport'); 
 var flash = require('connect-flash');
 var validator = require('express-validator');
 
+var index = require('./routes/index');
+var usersRoute = require('./routes/users');
+
 var app = express();
 
 mongoose.connect('mongodb://localhost:27017/shopping',  { useMongoClient: true });
 mongoose.Promise = global.Promise;
-require('./config/passport')(passport);
+require('./config/passport');
 
 // view engine setup
 // app.set('views', path.join8(__dirname, 'views'));
@@ -36,6 +38,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next){
+  res.locals.login = req.isAuthenticated();
+  next();
+});
+
+app.use('/user', usersRoute);
 app.use('/', index);
 
 // catch 404 and forward to error handler
