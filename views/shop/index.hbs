@@ -1,25 +1,32 @@
-{{# each products}}
 <div class="row">
+    <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+        <div id="success" class="alert alert-success"{{#if noMessage}} hidden {{/if}}>
+            {{successMsg}}
+        </div>        
+    </div>
+</div>
 
-    {{# each this}}
-    <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-            <img src="{{ this.imagePath }}" alt="..." class="img-responsive">
-            <div class="caption">
-                <h3>Thumbnail label</h3>
-                <p class "description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci turpis, porttitor non libero nec, lacinia feugiat mauris.
-                    Integer pharetra justo at elit dignissim mattis. Integer placerat ante neque, et posuere quam viverra
-                    vel. Nam euismod placerat tellus sit amet suscipit. Aenean vitae fringilla libero, sed eleifend orci.
-                    Proin enim.
-                </p>
-                <div class="clearfix">
-                    <div class="price pull-left">${{ this.price }}</div>
-                    <a href="#" class="btn btn-success pull-right" role="button">Add to Shoping Cart</a>
+{{# each products}}
+    <div class="row">
+        {{# each this}}
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="{{ this.imagePath }}" alt="..." class="img-responsive">
+                    <div class="caption">
+                        <h3>Thumbnail label</h3>
+                        <p class "description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci turpis, porttitor non libero nec, lacinia feugiat mauris.
+                            Integer pharetra justo at elit dignissim mattis. Integer placerat ante neque, et posuere quam viverra
+                            vel. Nam euismod placerat tellus sit amet suscipit. Aenean vitae fringilla libero, sed eleifend orci.
+                            Proin enim.
+                        </p>
+                        <div class="clearfix">
+                            <div class="price pull-left">${{ this.price }}</div>
+                            <a href="/add-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Add to Shoping Cart</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        {{/each}}
     </div>
-    {{/ each}}
-</div>
 {{/each}}
